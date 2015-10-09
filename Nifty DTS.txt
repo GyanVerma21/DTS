@@ -1,0 +1,50 @@
+NIFTY DTS SYSTEM:
+
+()Execute DTS From Date To Date:From 20150901 To 20150901.
+
+()Determine Range:Highest -Lowest.7946.2 7751.8
+
+()Determine The Dip Points:45 Points
+
+    -7946
+    -7901
+    -7856
+    -7811
+    -7766
+    -7721
+
+()Nifty Close On 9:16 At 7920
+    Action             :Buy(Because Closing Is Between 7946 and 7901)
+    Will Only Sell At  :7920+45:7965.
+    Will Only Buy Below:7901
+
+()Nifty Close on 11:35 At 7898
+    Action             :Buy(Because Closing Is Between 7901 and 7856)
+    Will only sell at  :7898+45:7943
+    Will only buy Below:7856
+
+()Nifty Close On 13:16 At 7853
+    Action             :Buy(Because Closing Is Between 7856 and 7811)
+    Will only sell At  :7853+45:7898
+    Will Only Buy At Or Below:7811
+
+()Nifty Close on 13:53 At 7811
+    Action             :Buy(Because Closing Is Between 7811 and 7766)
+    Will only sell At  :7811+45:7856
+    Will Only Buy At Or Below:7766
+
+()Nifty Close On 14:20 At 7764
+    Action             :Buy(Because Closing Is Between 7766 and 7721)
+    Will only sell At  :7764+45:7809
+    Will Only Buy At Or Below:7721
+
+
+
+
+()Nifty Close On 15:17 At 7810
+    Action             :Sell 1 Lot Which Bought At 7764.
+
+()Nifty Close On 15:21 At 7806
+    Action             :Buy(Because Closing Is Between 7811 and 7766)
+    Will Only Sell At  :7806+45:7851
+    
