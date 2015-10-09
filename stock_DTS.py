@@ -127,33 +127,30 @@ class DTS(object):
         """
 
         val = self.data[inputDate]
-        buyRef = 0
+        buyRef = float(self.range[inputDate]['max'])
         print "Range",self.range[inputDate]['max'],self.range[inputDate]['min']
         for timeVal,closeVal in val:
-            if timeVal.strip() == '09:16':
-                if self.range[inputDate]['min'] <= closeVal and self.range[inputDate]['max'] >= closeVal:
-                    self.result.append((inputDate, timeVal, closeVal, "Buy 1 Lot"))
-
-                    if ( float(self.range[inputDate]['max']) - float(self.dip)) >= float(self.range[inputDate]['min']):
-                        buyRef = float(self.range[inputDate]['max']) - float(self.dip)
-                        print buyRef
-                    self.buyStack.append((timeVal,closeVal))
+           # if timeVal.strip() == '09:16':
+           #     if buyRef <= closeVal :
+           #         self.result.append((inputDate, timeVal, closeVal, "Buy 1 Lot"))
+           #         buyRef = butRef - float(self.dip)
+            #        print buyRef
+            #       self.buyStack.append((timeVal,closeVal))
+           # else:
+            if float(closeVal) <= buyRef:
+                
+                self.result.append((inputDate, timeVal, closeVal, "Buy 1 Lot"))
+                buyRef = buyRef - float(self.dip)
+                self.buyStack.append((timeVal,closeVal))
+                
+            elif self.buyStack != []:
+                if (float(closeVal) - float(self.buyStack[-1][1])) >= self.dip: #increase of 45
+                    self.result.append((inputDate, timeVal, closeVal, "Sell 1 Lot bought at:"+self.buyStack[-1][1]))
+                    self.buyStack.pop()
+                    buyRef =  float(buyRef) + float(self.dip)
+                    
             else:
-                if float(closeVal) <= buyRef:
-                    
-                    self.result.append((inputDate, timeVal, closeVal, "Buy 1 Lot"))
-                    if buyRef - float(self.dip) >= float(self.range[inputDate]['min']):
-                        buyRef = buyRef - float(self.dip)
-                        self.buyStack.append((timeVal,closeVal))
-                    
-                elif self.buyStack != []:
-                    if (float(closeVal) - float(self.buyStack[-1][1])) >= self.dip: #increase of 45
-                        self.result.append((inputDate, timeVal, closeVal, "Sell 1 Lot bought at:"+self.buyStack[-1][1]))
-                        self.buyStack.pop()
-                        buyRef =  float(buyRef) + float(self.dip)
-                        
-                else:
-                     pass
+                 pass
     #added on 6th Oct
     def ApplyDTSSystemBuyingLevelsOnDuration(self, startDate, endDate):
         """
